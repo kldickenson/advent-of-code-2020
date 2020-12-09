@@ -9,31 +9,35 @@ function infiniteCk(data) {
 	let lines = [];
 
 	// Need to start at line 1 = data[0]
-	let currentLine = data[0];
-
+	let currentIndex = 0;
 
 	for (let i = 0; i<data.length; i++){
-		switch(data[i][0]) {
-		case "acc":
-		case "jmp":
-			lines.push(data[i]);
-			currentLine = i + data[i][1];
-			break;
-		default: // this covers 'nop'
-			lines.push(data[i]);
-			currentLine += 1;
-			break;
+		if (i === currentIndex) {
+			switch(data[i][0]) {
+			case "nop":
+				lines.push(data[i]);
+				console.log("Line" + currentIndex);
+				currentIndex++;
+				break;
+			case "acc":
+			case "jmp":
+				console.log("Line" + currentIndex);
+				if (lines.includes(data[i])) {
+					console.log("This is where it repeats! Line" + currentIndex);
+					return "STOP!";
+				} else {
+					lines.push(data[i]);
+					let val = data[i][1];
+					console.log(typeof val);
+					if(val < 0) {
+						currentIndex += val;
+					} else {
+						currentIndex += val;
+					}
+				}
+				break;
+			}
 		}
-		console.log("i " + currentLine);
 	}
-
-	// if a line has already been visited, mark previous move as start of infinite loop
-	if (!lines.includes(data[i])) {
-		lines.push(data[i]);
-	} else {
-		console.log("This is where it repeats!");
-	}
-
-	// let currentLine = lines[lines.length-1];
-
+	console.log(lines);
 }
