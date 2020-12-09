@@ -9,8 +9,8 @@ function infiniteCk(data) {
 
 	for(let i = 0; i<data.length; i++) {
 		if (lines.includes(currentIndex)) {
-			console.log("This is where it repeats! Line" + currentIndex + ": [" + data[currentIndex] + "]");
-			console.log("Lines: " + lines);
+			// console.log("This is where it repeats! Line" + currentIndex + ": [" + data[currentIndex] + "]");
+			// console.log("Lines: " + lines);
 			console.log("Accumulator: " + accumulator);
 			return "STOP!";
 		} else {
@@ -18,9 +18,8 @@ function infiniteCk(data) {
 			lines.push(currentIndex);
 			switch(data[currentIndex][0]) {
 			case "acc":
-				let val = data[currentIndex][1];
-				accumulator += val;
-				console.log("Accumulator is now: " + accumulator);
+				accumulator += data[currentIndex][1];
+				// console.log("Accumulator is now: " + accumulator);
 				currentIndex++;
 				break;
 			case "jmp":
