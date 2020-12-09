@@ -10,12 +10,4 @@ let testData = [
 	["acc", 6] // Line 8
 ];
 
-// order
-// Line0
-// Line1
-// Line2
-// Line6
-// Line7
-// Line3
-// Line4
-// Line1
+// lines:  0, 1, 2, 6, 7, 3, 4, 1
