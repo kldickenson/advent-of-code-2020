@@ -39,8 +39,6 @@ let jmpLines = [];
 function nopJmpCk(data) {
 	// create an array of visited lines to keep track of where we have been
 	let lines = [];
-	// jmpLines = [];
-	// nopLines = [];
 
 	// Need to start at line 1 = data[0]
 	let currentIndex = 0;
@@ -53,8 +51,6 @@ function nopJmpCk(data) {
 				console.log("This is where it repeats! Line" + currentIndex + ": [" + data[currentIndex] + "]");
 				// console.log("Lines: " + lines);
 				// console.log("Accumulator: " + accumulator);
-				// console.log("JMP:  (" + jmpLines.length + ")  " + jmpLines);
-				// console.log("NOP:  (" + nopLines.length + ")  " + nopLines);
 				return "STOP!";
 			} else {
 				// console.log("Current -> Line:" + currentIndex + ": " + data[currentIndex]);
@@ -66,11 +62,9 @@ function nopJmpCk(data) {
 					currentIndex++;
 					break;
 				case "jmp":
-					jmpLines.push(currentIndex);
 					currentIndex += data[currentIndex][1];
 					break;
 				case "nop":
-					nopLines.push(currentIndex);
 					currentIndex++;
 					break;
 				default:
@@ -78,9 +72,6 @@ function nopJmpCk(data) {
 				}
 			}
 		} else {
-			//reset jmpLines and nopLines
-			jmpLines = [];
-			nopLines = [];
 			// had NO infinite loop!
 			console.log("Accumulator: " + accumulator);
 			return "MADE IT TO THE END!";
@@ -90,25 +81,53 @@ function nopJmpCk(data) {
 }
 
 function nopLoop(data) {
-	nopJmpCk(data);
-	console.log(nopLines);
-	// loop through the lines that have "nop", change to "jmp", rerun nopJmpCk and check if they make it to the end
-	for (let idx of nopLines) {
-		let dataNew = [...data];
-		dataNew[idx][0] = "jmp";
-		console.log("dataNew  Line:"+ idx + ":  " + dataNew[idx]);
-		nopJmpCk(dataNew);
+	// find the data lines with "jmp";
+	for (let n = 0; n < data.length; n++) {
+		if(data[n][0] === "nop"){
+			nopLines.push(n);
+		}
 	}
+	console.log(nopLines);
+
+	// lets see if this works for a single item; YES!!
+	let dataNew = [...data];
+	let lineNum = 582;
+	dataNew[lineNum][0] = "jmp";
+	console.log("dataNew: " + dataNew[lineNum]);
+	nopJmpCk(dataNew);
+
+	// loop through the lines that have "nop", change to "jmp", rerun nopJmpCk and check if they make it to the end
+	// for (let i = 0; i < nopLines.length; i++) {
+	// 	let dataNew = [...data]; // resetting dataNew on each iteration
+	// 	let x = nopLines[i];
+	// 	dataNew[x][0] = "jmp";
+	// 	console.log("dataNew  Line:"+ x + ":  " + dataNew[x]);
+	// 	nopJmpCk(dataNew);
+	// 	console.log("- - - - - - - - - - - - - - - - - -");
+	// }
 }
 
 function jmpLoop(data) {
-	nopJmpCk(data);
-	console.log(jmpLines);
-	// loop through the lines that have "nop", change to "jmp", rerun nopJmpCk and check if they make it to the end
-	for (let idx of jmpLines) {
-		let dataNew = [...data];
-		dataNew[idx][0] = "nop";
-		console.log("dataNew  Line:"+ idx + ":  " + dataNew[idx]);
-		nopJmpCk(dataNew);
+	// find the data lines with "jmp";
+	for (let j = 0; j < data.length; j++) {
+		if(data[j][0] === "jmp"){
+			jmpLines.push(j);
+		}
 	}
+	console.log(jmpLines);
+	// lets see if this works for a single item; YES!!
+	let dataNew = [...data];
+	let lineNum = 632;
+	dataNew[lineNum][0] = "nop";
+	console.log("dataNew: " + dataNew[lineNum]);
+	nopJmpCk(dataNew);
+	// // loop through and change "jmp" to "nop", rerun nopJmpCk at each loop and check if they make it to the end
+	// for (let i = 0; i < jmpLines.length; i++) {
+	// 	let dataNew = [...data]; // resetting dataNew on each iteration
+	// 	let x = jmpLines[i];
+	// 	dataNew[x][0] = "nop";
+	// 	console.log("dataNew  Line:"+ x + ":  " + dataNew[x]);
+	// 	nopJmpCk(dataNew);
+	// 	console.log("- - - - - - - - - - - - - - - - - -");
+	// }
 }
