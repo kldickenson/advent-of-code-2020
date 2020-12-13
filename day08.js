@@ -71,11 +71,12 @@ function nopJmpCk(data) {
 					null;
 				}
 			}
+		} else if (currentIndex > data.length){
+			console.log("MADE IT TO THE END! Accumulator: " + accumulator);
+			return(accumulator);
 		} else {
 			// had NO infinite loop!
 			console.log("Accumulator: " + accumulator);
-			return "MADE IT TO THE END!";
-
 		}
 	}
 }
@@ -90,21 +91,22 @@ function nopLoop(data) {
 	console.log(nopLines);
 
 	// lets see if this works for a single item; YES!!
-	let dataNew = [...data];
-	let lineNum = 582;
-	dataNew[lineNum][0] = "jmp";
-	console.log("dataNew: " + dataNew[lineNum]);
-	nopJmpCk(dataNew);
+	// let dataNew = [...data];
+	// let lineNum = 582;
+	// dataNew[lineNum][0] = "jmp";
+	// console.log("dataNew: " + dataNew[lineNum]);
+	// nopJmpCk(dataNew);
 
 	// loop through the lines that have "nop", change to "jmp", rerun nopJmpCk and check if they make it to the end
-	// for (let i = 0; i < nopLines.length; i++) {
-	// 	let dataNew = [...data]; // resetting dataNew on each iteration
-	// 	let x = nopLines[i];
-	// 	dataNew[x][0] = "jmp";
-	// 	console.log("dataNew  Line:"+ x + ":  " + dataNew[x]);
-	// 	nopJmpCk(dataNew);
-	// 	console.log("- - - - - - - - - - - - - - - - - -");
-	// }
+	for (let i = 0; i < nopLines.length; i++) {
+		console.log("- - - - - - - - - - - - - - - - - -");
+		let dataNew = [];
+		dataNew = [...data]; // resetting dataNew on each iteration
+		let x = nopLines[i];
+		dataNew[x][0] = "jmp";
+		console.log("dataNew  Line:"+ x + ":  " + dataNew[x]);
+		nopJmpCk(dataNew);
+	}
 }
 
 function jmpLoop(data) {
@@ -117,17 +119,18 @@ function jmpLoop(data) {
 	console.log(jmpLines);
 	// lets see if this works for a single item; YES!!
 	let dataNew = [...data];
-	let lineNum = 632;
+	let lineNum = 627;
 	dataNew[lineNum][0] = "nop";
 	console.log("dataNew: " + dataNew[lineNum]);
 	nopJmpCk(dataNew);
-	// // loop through and change "jmp" to "nop", rerun nopJmpCk at each loop and check if they make it to the end
+	// loop through and change "jmp" to "nop", rerun nopJmpCk at each loop and check if they make it to the end
 	// for (let i = 0; i < jmpLines.length; i++) {
-	// 	let dataNew = [...data]; // resetting dataNew on each iteration
+	// 	console.log("- - - - - - - - - - - - - - - - - -");
+	// 	let dataNew = [];
+	// 	dataNew = [...data]; // resetting dataNew on each iteration
 	// 	let x = jmpLines[i];
 	// 	dataNew[x][0] = "nop";
 	// 	console.log("dataNew  Line:"+ x + ":  " + dataNew[x]);
 	// 	nopJmpCk(dataNew);
-	// 	console.log("- - - - - - - - - - - - - - - - - -");
 	// }
 }
