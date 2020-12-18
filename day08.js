@@ -107,7 +107,7 @@ function nopLoop(data) {
 function jmpLoop(data) {
 	// find the data lines with "jmp";
 	let jmpLines = [];
-	for (let j = 0; j < data.length; j++) {
+	for (let j = 0; j < data.length; j++) {"";
 		if(data[j][0] === "jmp"){
 			jmpLines.push(j);
 		}
